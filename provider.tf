@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "falcon-vpc-boilerplate"
+    bucket = "aws-terraform-boilerplates-state"
     key    = "state.tfstate"
     region = "us-west-2"
   }

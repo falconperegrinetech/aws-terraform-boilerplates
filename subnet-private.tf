@@ -3,8 +3,9 @@ resource "aws_subnet" "private_subnet" {
   cidr_block        = element(var.private_subnets, count.index)
   availability_zone = element(var.availability_zones, count.index)
   count             = length(var.private_subnets)
-  tags = {
-    "Name"        = "${var.prefix}-${var.private_subnets[count.index]}"
-    "Description" = "Falcon VPC Private Subnet"
-  }
+
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-private-subnet-${var.public_subnets[count.index]}"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
 }

@@ -3,17 +3,17 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = {
-    "Name"        = var.prefix
-    "Description" = "Falcon Boilerplate VPC"
-  }
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-vpc"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
-  tags = {
-    "Name"        = "vpc-boilerplate-internet-gateway"
-    "Description" = "Falcon Boilerplate VPC Internet Gateway"
-  }
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-igw"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
 }
 

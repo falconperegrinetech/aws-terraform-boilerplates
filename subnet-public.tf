@@ -5,8 +5,10 @@ resource "aws_subnet" "public_subnet" {
   count                   = length(var.public_subnets)
   map_public_ip_on_launch = true
 
-  tags = {
-    "Name"        = "${var.prefix}-${var.public_subnets[count.index]}"
-    "Description" = "Falcon VPC Public Subnet"
-  }
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-public-subnet-${var.public_subnets[count.index]}"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
 }
+
+
