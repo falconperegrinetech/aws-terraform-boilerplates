@@ -28,5 +28,14 @@ output "sg_db_rds_postgres" {
   value = aws_security_group.db_rds_postgres.id
 }
 
+output "sg_load_balancer" {
+  value = aws_security_group.load_balancer.id
+}
+
+output "alb" {
+  value = aws_lb.alb.id
+}
+
+
 
 

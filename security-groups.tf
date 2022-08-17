@@ -73,3 +73,59 @@ resource "aws_security_group" "db_rds_postgres" {
     "Description" = "Falcon Terraform AWS Boilerplates"
   })
 }
+
+
+resource "aws_security_group" "load_balancer" {
+  vpc_id      = aws_vpc.vpc.id
+  name        = "APPLICATION_LOAD_BALANCER"
+  description = "Load Balancer Security Group"
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-load-balancer-security-group"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
+}
+
+
+resource "aws_security_group" "autoscaling" {
+  vpc_id      = aws_vpc.vpc.id
+  name        = "AUTOSCALING"
+  description = "Auto Scaling Security Group"
+
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.load_balancer.id]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-auto-scaling-security-group"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
+}

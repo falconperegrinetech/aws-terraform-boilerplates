@@ -21,3 +21,12 @@ variable "default_region" {
 variable "prefix" {
   type = string
 }
+
+variable "instance_type" {
+  type = string
+}
+
+variable "instance_key_name" {
+  type = string
+}
+
