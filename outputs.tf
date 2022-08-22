@@ -41,6 +41,13 @@ output "private_key" {
   sensitive = true
 }
 
+output "container_registry_url" {
+  value = aws_ecr_repository.registry.repository_url
+}
+output "launch_template" {
+  value = aws_launch_template.launch_template.id
+}
+
 
 
 

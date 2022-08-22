@@ -15,6 +15,12 @@ resource "aws_cloudwatch_metric_alarm" "up" {
 
   actions_enabled = true
   alarm_actions   = [aws_autoscaling_policy.scaleup.arn]
+
+
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-scale-up-alarm"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
 }
 
 
@@ -35,5 +41,10 @@ resource "aws_cloudwatch_metric_alarm" "down" {
 
   actions_enabled = true
   alarm_actions   = [aws_autoscaling_policy.scaledown.arn]
+
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-scale-down-alarm"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
 }
 

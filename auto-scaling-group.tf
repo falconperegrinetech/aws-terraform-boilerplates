@@ -26,7 +26,7 @@ resource "aws_autoscaling_policy" "scaleup" {
 }
 
 resource "aws_autoscaling_policy" "scaledown" {
-  name                   = "Scale Up"
+  name                   = "Scale Down"
   adjustment_type        = "ChangeInCapacity"
   scaling_adjustment     = -1
   autoscaling_group_name = aws_autoscaling_group.autoscaling.name

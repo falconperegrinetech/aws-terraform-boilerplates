@@ -27,6 +27,11 @@ resource "aws_lb_target_group" "alb_target_group" {
     unhealthy_threshold = 2
     matcher             = "200"
   }
+
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-target-group"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
 }
 
 resource "aws_lb_listener" "alb_listener" {
@@ -37,4 +42,10 @@ resource "aws_lb_listener" "alb_listener" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_target_group.arn
   }
+
+
+  tags = merge(local.common_tags, {
+    "Name"        = "${var.prefix}-alb-listener-group"
+    "Description" = "Falcon Terraform AWS Boilerplates"
+  })
 }
