@@ -1,8 +1,9 @@
 resource "aws_lb" "alb" {
-  name            = "alb-${var.prefix}"
-  internal        = true
-  security_groups = [aws_security_group.load_balancer.id]
-  subnets         = [aws_subnet.public_subnet[0].id, aws_subnet.private_subnet[1].id]
+  name               = "alb-${var.prefix}"
+  security_groups    = [aws_security_group.load_balancer.id]
+  subnets            = [aws_subnet.public_subnet[0].id, aws_subnet.public_subnet[1].id]
+  internal           = false
+  load_balancer_type = "application"
 
   tags = merge(local.common_tags, {
     "Name"        = "${var.prefix}-application-load-balancer"

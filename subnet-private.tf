@@ -5,7 +5,7 @@ resource "aws_subnet" "private_subnet" {
   count             = length(var.private_subnets)
 
   tags = merge(local.common_tags, {
-    "Name"        = "${var.prefix}-private-subnet-${var.public_subnets[count.index]}"
+    "Name"        = "${var.prefix}-private-subnet-${var.private_subnets[count.index]}"
     "Description" = "Falcon Terraform AWS Boilerplates"
   })
 }

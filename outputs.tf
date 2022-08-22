@@ -11,14 +11,14 @@ output "private_subnet_ids" {
   value = { for k, v in aws_subnet.private_subnet : v.tags.Name => v.id }
 }
 
-
-output "public_route_table_association" {
-  value = { for k, v in aws_route_table_association.public_route_table_association : v.subnet_id => v.route_table_id }
+output "public_subnets_route_table_association" {
+  value = { for k, v in aws_route_table_association.public_subnets_route_table_association : v.subnet_id => v.route_table_id }
 }
 
-output "private_route_table_association" {
-  value = { for k, v in aws_route_table_association.private_route_table_association : v.subnet_id => v.route_table_id }
+output "private_subnets_route_table_association" {
+  value = { for k, v in aws_route_table_association.private_subnets_route_table_association : v.subnet_id => v.route_table_id }
 }
+
 
 output "sg_web" {
   value = aws_security_group.web.id
@@ -34,6 +34,11 @@ output "sg_load_balancer" {
 
 output "alb" {
   value = aws_lb.alb.id
+}
+
+output "private_key" {
+  value     = tls_private_key.key.private_key_pem
+  sensitive = true
 }
 
 
